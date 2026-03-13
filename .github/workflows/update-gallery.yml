@@ -1,0 +1,24 @@
+name: Update Photo List
+on:
+  push:
+    paths:
+      - 'photos/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Generate Photo List
+        run: |
+          echo "[" > photos.json
+          for file in photos/*; do echo "\"$file\"," >> photos.json; done
+          sed -i '$ s/,$//' photos.json
+          echo "]" >> photos.json
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add photos.json
+          git commit -m "Update photo list" || exit 0
+          git push
