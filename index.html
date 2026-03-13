@@ -1,97 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Photo Vault</title>
-    <style>
-        :root {
-            --bg-color: #f4f4f9;
-            --card-bg: #ffffff;
-            --text-color: #333;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
-        }
-        header {
-            text-align: center;
-            padding: 40px 0;
-        }
-        /* The Magic Grid */
-        #gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            grid-gap: 15px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .photo-card {
-            background: var(--card-bg);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
-        }
-        .photo-card:hover {
-            transform: scale(1.02);
-        }
-        .photo-card img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover; /* Keeps images uniform without stretching */
-            display: block;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pi Gallery</title>
+  <style>
+    body { margin: 0; background: #111; color: #eee; font-family: sans-serif; padding: 1rem; }
+    h1 { text-align: center; margin-bottom: 1rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+    .card { background: #222; border-radius: 6px; overflow: hidden; }
+    .card img { width: 100%; height: 160px; object-fit: cover; display: block; }
+    .card p { padding: 4px 8px; font-size: 0.7rem; color: #888; }
+    footer { text-align: center; margin-top: 1rem; font-size: 0.75rem; color: #555; }
+  </style>
 </head>
 <body>
-
-    <header>
-        <h1>Photo Repository</h1>
-        <p>Automatically synced via GitHub Actions</p>
-    </header>
-
-    <main id="gallery">
-        <p id="loading">Loading your memories...</p>
-    </main>
-
-    <script>
-        // We fetch the JSON file created by the GitHub Action in step 3
-        async function loadPhotos() {
-            try {
-                const response = await fetch('./photos.json');
-                const photoPaths = await response.json();
-                const gallery = document.getElementById('gallery');
-                const loadingText = document.getElementById('loading');
-
-                if (photoPaths.length === 0) {
-                    loadingText.innerText = "No photos found yet. Upload some to the /photos folder!";
-                    return;
-                }
-
-                loadingText.style.display = 'none';
-
-                photoPaths.forEach(path => {
-                    const card = document.createElement('div');
-                    card.className = 'photo-card';
-                    
-                    const img = document.createElement('img');
-                    img.src = path;
-                    img.loading = "lazy"; // Improves performance for many photos
-                    
-                    card.appendChild(img);
-                    gallery.appendChild(card);
-                });
-            } catch (error) {
-                console.error("Error loading photos:", error);
-                document.getElementById('loading').innerText = "Failed to load photos. Check if photos.json exists.";
-            }
-        }
-
-        loadPhotos();
-    </script>
+  <h1>📷 Pi Gallery</h1>
+  <div class="grid">
+  <div class="card"><img src="https://raw.githubusercontent.com/jnagan/test_photo_repository/main/photos/RFID_263003629256_2026-02-19_16-18-08.jpg" alt="RFID_263003629256_2026-02-19_16-18-08.jpg" loading="lazy"><p>RFID_263003629256_2026-02-19_16-18-08.jpg</p></div>
+  <div class="card"><img src="https://raw.githubusercontent.com/jnagan/test_photo_repository/main/photos/RFID_263003629260_2026-02-19_16-17-09.jpg" alt="RFID_263003629260_2026-02-19_16-17-09.jpg" loading="lazy"><p>RFID_263003629260_2026-02-19_16-17-09.jpg</p></div>
+  </div>
+  <footer>2 photo(s) · updated 2026-03-13 10:47:13</footer>
 </body>
 </html>
