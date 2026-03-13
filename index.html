@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Photo Vault</title>
+    <style>
+        :root {
+            --bg-color: #f4f4f9;
+            --card-bg: #ffffff;
+            --text-color: #333;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+        /* The Magic Grid */
+        #gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .photo-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .photo-card:hover {
+            transform: scale(1.02);
+        }
+        .photo-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover; /* Keeps images uniform without stretching */
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Photo Repository</h1>
+        <p>Automatically synced via GitHub Actions</p>
+    </header>
+
+    <main id="gallery">
+        <p id="loading">Loading your memories...</p>
+    </main>
+
+    <script>
+        // We fetch the JSON file created by the GitHub Action in step 3
+        async function loadPhotos() {
+            try {
+                const response = await fetch('./photos.json');
+                const photoPaths = await response.json();
+                const gallery = document.getElementById('gallery');
+                const loadingText = document.getElementById('loading');
+
+                if (photoPaths.length === 0) {
+                    loadingText.innerText = "No photos found yet. Upload some to the /photos folder!";
+                    return;
+                }
+
+                loadingText.style.display = 'none';
+
+                photoPaths.forEach(path => {
+                    const card = document.createElement('div');
+                    card.className = 'photo-card';
+                    
+                    const img = document.createElement('img');
+                    img.src = path;
+                    img.loading = "lazy"; // Improves performance for many photos
+                    
+                    card.appendChild(img);
+                    gallery.appendChild(card);
+                });
+            } catch (error) {
+                console.error("Error loading photos:", error);
+                document.getElementById('loading').innerText = "Failed to load photos. Check if photos.json exists.";
+            }
+        }
+
+        loadPhotos();
+    </script>
+</body>
+</html>
