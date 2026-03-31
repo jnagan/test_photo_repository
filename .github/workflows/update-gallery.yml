@@ -23,7 +23,6 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git fetch origin main
           git add photos.json
           git commit -m "Update photo list" || exit 0
           git push
