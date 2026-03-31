@@ -23,4 +23,4 @@ jobs:
           git config --local user.name "GitHub Action"
           git add photos.json
           git commit -m "Update photo list" || exit 0
-          
+          git push
