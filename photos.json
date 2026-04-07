@@ -1,6 +1,6 @@
 {
-  "updated": "2026-04-02T02:00:10",
-  "total_photos": 42,
+  "updated": "2026-04-07T02:00:06",
+  "total_photos": 44,
   "by_rfid": {
     "263003629256": [
       {
@@ -10,6 +10,16 @@
       }
     ],
     "263003629260": [
+      {
+        "filename": "RFID_263003629260_2026-04-06_18-56-49.jpg",
+        "url": "https://raw.githubusercontent.com/jnagan/test_photo_repository/main/photos/RFID_263003629260_2026-04-06_18-56-49.jpg",
+        "timestamp": "2026-04-06 18:56:49"
+      },
+      {
+        "filename": "RFID_263003629260_2026-04-06_18-56-38.jpg",
+        "url": "https://raw.githubusercontent.com/jnagan/test_photo_repository/main/photos/RFID_263003629260_2026-04-06_18-56-38.jpg",
+        "timestamp": "2026-04-06 18:56:38"
+      },
       {
         "filename": "RFID_263003629260_2026-04-01_17-51-41.jpg",
         "url": "https://raw.githubusercontent.com/jnagan/test_photo_repository/main/photos/RFID_263003629260_2026-04-01_17-51-41.jpg",
